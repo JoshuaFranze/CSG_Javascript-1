@@ -13,7 +13,7 @@ function setup() {
   canvas = createCanvas(460,460);
   canvas.parent('processing');
   noStroke();
-  frameRate(2);
+  frameRate(5);
   textFont("Georgia");
   textSize(18);
 }

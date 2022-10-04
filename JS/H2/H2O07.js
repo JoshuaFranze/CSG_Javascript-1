@@ -1,5 +1,5 @@
 var vierkanten = new Array(23,18,11);
-var namen = new Array("August","Tinus","Colette");
+var namen = new Array("August","Tinus","Colette",);
 
 function setup() {
   canvas = createCanvas(850,220);
@@ -9,9 +9,9 @@ function setup() {
   textSize(40);
   noStroke();
   vierkanten.push(30);
-  // voeg je eigen naam toe
-  // sorteer de array met namen
-  // verwijder het eerste element uit vierkanten
+  namen.push("Joshua");
+  namen.sort();
+  namen.shift();
   noLoop();
 }
 

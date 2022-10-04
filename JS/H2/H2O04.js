@@ -17,8 +17,18 @@ function setup() {
 function draw() {
   background('grey');
   image(strand,strandX,0);
-  image(strand,strandX + width,0);
 
+  if (strandX>0) {
+    image(strand,strandX - width,0);
+  }
+  else {
+    image(strand,strandX + width,0);
+  }
+
+  if (strandX == width || strandX == -width) {
+    strandX = 0;
+  }  
+  
   if (keyIsDown(RIGHT_ARROW)) {
     strandX++;
   }

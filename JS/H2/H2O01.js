@@ -6,6 +6,7 @@ function preload() {
   kater = loadImage("images/brieck.jpg");
   bomen = loadImage("images/bomen.jpg");
   kever = loadImage("images/sprites/kever.png");
+  eifel = loadImage("images/toren.jpg");
 }
 
 function setup() {
@@ -16,9 +17,10 @@ function setup() {
 }
 
 function draw() {
-  background(bomen);  
-  // image(katerKlein,0,0);
+  background('grey');  
+  image(kater,25,25,400,400);
   keverX+=random(-5,5);
   keverY+=random(-5,5);
-  // image(kever,keverX,keverY);
+  image(kever,keverX,keverY,30,30);
+  image(eifel,100,25,400,400);
 }
