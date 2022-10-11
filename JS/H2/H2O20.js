@@ -1,6 +1,6 @@
 var raster = {
-  aantalRijen: 6,
-  aantalKolommen: 9,
+  aantalRijen:18,
+  aantalKolommen:27,
   celGrootte: null,
   
   berekenCelGrootte() {
@@ -29,7 +29,7 @@ var jos = {
 
   beweeg() {
     if (keyIsDown(LEFT_ARROW)) {
-      this.x -= raster.celGrootte;
+      this.x -= this.stapGrootte;
       this.frameNummer = 2;
     }
     if (keyIsDown(RIGHT_ARROW)) {
