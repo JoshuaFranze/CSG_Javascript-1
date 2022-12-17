@@ -1,13 +1,4 @@
-var kater,katerKlein,landschap,kever;
-var keverX;
-var keverY;
-
-function preload() {
-  kater = loadImage("images/brieck.jpg");
-  bomen = loadImage("images/bomen.jpg");
-  kever = loadImage("images/sprites/kever.png");
-  eifel = loadImage("images/toren.jpg");
-}
+var kever
 
 function setup() {
   canvas = createCanvas(450,450);

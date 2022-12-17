@@ -1,84 +1,44 @@
-var data;
-var ringen = [];
+var achtergrond = 'grey';
+var width = w;
+var grens = width / 8 * 3;
+var w = window.screen.width * window.devicePixelRatio;
+var h = window.screen.height * window.devicePixelRatio;
 
 function preload() {
-    achtergrondmuziek = loadSound("sounds/bensound-dance.mp3");
-    // bron: https://www.bensound.com/royalty-free-music/track/dance
-    
-    raak = loadSound("sounds/score.wav");
+    achtergrondmuzieklvl1 = loadSound("sounds/Drum_and_Bass_-_Peanut.mp3");
+    achtergrondmuzieklvl2 = loadSound("sounds/wildwest.mp3");
+    hitsound = loadSound("sounds/hit.wav");
+    shootingsound = loadSound("sounds/shot.mp3");
+    heart = loadImage("assets/heart.png")
+    achtergrond = loadImage("assets/Blauwelucht.png");
+    achtergrondlvl1 = loadImage("assets/neoncity.jpg");
+    achtergrondlvl2 = loadImage("assets/wildwest.jpg");
     data = loadJSON('assets/data.json');
-}
-
-function setup() {
-    dataNaarArray();
-    createCanvas(windowWidth, windowHeight);
+    aKey = loadImage("assets/keys/a key.png");
+    wKey = loadImage("assets/keys/w key.png");
+    dKey = loadImage("assets/keys/d key.png");
+    eKey = loadImage("assets/keys/e key.png");
+    qKey = loadImage("assets/keys/q key.png");
+    leftKey = loadImage("assets/keys/left key.png");
+    upKey = loadImage("assets/keys/up key.png");
+    rightKey = loadImage("assets/keys/right key.png");
+    shiftKey = loadImage("assets/keys/shift key.png");
+    num_0Key = loadImage("assets/keys/0 key.png");
+  }
+  
+  function setup() {
+    canvas = createCanvas(w,h);
+    canvas.parent('processing');
+    colorMode(RGB,255,255,255,1);
     textFont("Monospace");
-    textSize(40);
-    textAlign(CENTER,CENTER);
-    b1 = new Bal();
-    d1 = new Doel();
-}
-
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
-    d1.bepaalDiameter();
-    d1.x = canvas.width / 2;
-    d1.y = canvas.height / 2;
-}
-
-function draw() {
-    maakAchtergrond();
-    d1.teken();
-    b1.teken();
-    if (d1.raakt(b1)) {
-        if (!d1.wordtGeraakt) {
-            d1.geraakt++;
-            raak.play();
-            d1.wordtGeraakt = true;
-        }
-    }
-    else {
-        d1.wordtGeraakt = false;
-    }
-    if (b1.actief) {
-        b1.beweeg();
-    }
-    else {
-        background(255);
-        text('Pas de grootte van je browserscherm aan zodat de bal zo vaak mogelijk het doel in het midden raakt.\n\nDruk ENTER om te starten.',canvas.width / 4,canvas.height / 4,canvas.width / 2,canvas.height / 2);
-    }
-}
-
-function dataNaarArray() {
-    var ring,x,y,diameter;
-    var ringData = data['ringen'];
-    for (var i = 0; i < ringData.length; i++) {
-        ring = ringData[i];
-        x = ring['middelpunt']['x'];
-        y = ring['middelpunt']['y'];
-        diameter = ring['diameter'];
-        ringen.push(new Ring(x, y, diameter));
+    textSize(44);
+    textAlign(CENTER,CENTER);  
+    frameRate(60);
+    spel = new spel();
   }
-}
-
-function maakAchtergrond() {
-    push();
-    background(255,0,200);
-    for (var i = 0; i < ringen.length; i++) {
-        ringen[i].teken();
-    }
-    text('Pas de grootte van je browserscherm aan zodat de bal zo vaak mogelijk het doel in het midden raakt.',0,0,canvas.width,canvas.height / 2);
-    textAlign(RIGHT,BOTTOM);
-    textSize(20);
-    text('Music: www.bensound.com',0,0,canvas.width,canvas.height);
-    pop();
-}
-
-function keyPressed() {
-  if (keyCode == ENTER) {
-    if (!b1.actief) {
-        b1.actief = true;
-        achtergrondmuziek.loop();
-    }
+  
+  function draw() {
+    spel.update();
+    spel.teken();
   }
-}
+  
