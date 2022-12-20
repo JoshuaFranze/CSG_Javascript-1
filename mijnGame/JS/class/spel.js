@@ -120,7 +120,7 @@ class spel {
     background(186, 232, 232);
     fill(39, 35, 67);
     text("speler 1",w/5.485714,h/10.8);
-    text("Om te bewegen gebruik:",w/5.3333,h/4.6);
+    text("Om te bewegen gebruik:",w/5.3333,h/3.6);
     image(aKey,w/9.6,h/2.7,w/19.2,h/10.8);
     image(wKey,w/6.4,h/2.7,w/19.2,h/10.8);
     image(dKey,w/4.8,h/2.7,w/19.2,h/10.8);
@@ -138,6 +138,7 @@ class spel {
     text("Numpad:",w/1.3714,h/1.167567);
     image(num_0Key,w/1.246753,h/1.23428,w/19.2,h/10.8);
     text("Druk op 'Enter' om door te gaan", w/2,h/10.8)
+    text("Druk op 'F11' om in fullscreen te gaan",w/2,h/5.4);
     pop();
     if (keyIsDown(13) && this.willekeurig == 1) {
       this.willekeurigLevel();
@@ -147,7 +148,7 @@ class spel {
   levels() {
     push();
        fill('black');
-    if (this.gespeeldelevels < 4) {
+    if (this.gespeeldelevels < 5) {
 
        if (this.level == 3) {
         background(achtergrondlvl1);
@@ -344,13 +345,24 @@ class spel {
 
 
   eindScherm() {
-    this.platforms = [];
     push();
     fill(39, 35, 67);
     if (this.speler1wins > this.speler2wins) {
-    text("Speler 1 heeft gewonnen", w/2,h/5.4);
-    text(this.speler1wins + "-" + this.speler2wins,w/2,h/2)
+      text("Speler 1 heeft gewonnen", w/2,h/5.4);
     }
+    if (this.speler2wins > this.speler1wins) {
+      text("Speler 2 heeft gewonnen", w/2,h/5.4); 
+    }
+    text(this.speler1wins + "-" + this.speler2wins,w/2,h/2)
+    stroke("red");
+    fill("black");
+    strokeWeight(w / 240);
+    ellipse(w/4*1,h/2,w/19.2);
+
+    stroke("blue");
+    fill("black");
+    strokeWeight(w / 240);
+    ellipse(w/4*3,h/2,w/19.2);
     pop();
   }
 
@@ -358,10 +370,10 @@ class spel {
   teken() {
     background(186, 232, 232);
     if (this.level == 0) {
-        this.beginScherm();
-        }
+      this.beginScherm();
+    }
     if (this.level >= 3) {
-        this.levels();
+      this.levels();
     }
     if (this.level == 1) {
       this.tutorialScreen();
