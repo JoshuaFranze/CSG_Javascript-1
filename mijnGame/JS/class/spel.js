@@ -304,7 +304,9 @@ class spel {
 
   platformslvl4() {
     this.platforms = [];
-    this.platforms.push(new Platform(w / 9.6,h / 1.0485436,w / 1.28,"midnightblue"));
+    this.platforms.push(new Platform(w / 9.6,h / 1.0485436,w / 1.28,"darkorange"));
+    this.platforms.push(new Platform(w / 7.68,h / 1.44,w / 5,4,"darkorange"));
+    this.platforms.push(new Platform(w / 1.42222,h / 1.18,w / 5,4,"darkorange"));
   }
 
   platformslvl5() {
