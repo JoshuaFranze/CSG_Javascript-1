@@ -297,8 +297,8 @@ class spel {
     this.platforms.push(new Platform(w / 9.6,h / 1.0485436,w / 1.28,"midnightblue"));
     this.platforms.push(new Platform(0,h / 1.44,w / 6.4,"midnightblue"));
     this.platforms.push(new Platform(w / 1.185185,h / 1.44,w / 6.4,"midnightblue"));
-    this.platforms.push(new Platform(400,500,200,"midnightblue"));
-    this.platforms.push(new Platform(1320,500,200,"midnightblue"));
+    this.platforms.push(new Platform(w/4.8,h/2.16,200,"midnightblue"));
+    this.platforms.push(new Platform(w/1.454545,h/2.16,w/9.6,"midnightblue"));
   }
 
   platformslvl4() {
