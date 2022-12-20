@@ -1,3 +1,5 @@
+// error muziek besproken: akkoord VNR
+
 var width = w;
 var grens = width / 8 * 3;
 var w = window.screen.width * window.devicePixelRatio;
