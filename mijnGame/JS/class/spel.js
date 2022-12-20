@@ -119,24 +119,24 @@ class spel {
     push();
     background(186, 232, 232);
     fill(39, 35, 67);
-    text("speler 1",350,100);
-    text("Om te bewegen gebruik:",360,300);
-    image(aKey,200,400,100,100);
-    image(wKey,300,400,100,100);
-    image(dKey,400,400,100,100);
-    text("Om te schieten gebruik:",360,700);
-    image(eKey,350,800,100,100);
-    image(qKey,250,800,100,100);
-    text("speler 2",1540,100)
-    text("Om te bewegen gebruik:",1550,300);
-    image(leftKey,1390,400,100,100);
-    image(upKey,1490,400,100,100);
-    image(rightKey,1590,400,100,100);
-    text("Om te schieten gebruik:",1550,700);
-    text("Rechter:",1400,800)
-    image(shiftKey,1540,750,250,100);
-    text("Numpad:",1400,925);
-    image(num_0Key,1540,875,100,100);
+    text("speler 1",w/5.485714,h/10.8);
+    text("Om te bewegen gebruik:",w/5.3333,h/4.6);
+    image(aKey,w/9.6,h/2.7,w/19.2,h/10.8);
+    image(wKey,w/6.4,h/2.7,w/19.2,h/10.8);
+    image(dKey,w/4.8,h/2.7,w/19.2,h/10.8);
+    text("Om te schieten gebruik:",w/5.333,h/1.542857);
+    image(eKey,w/5.4857,h/1.35,w/19.2,h/10.8);
+    image(qKey,w/7.68,h/1.35,w/19.2,h/10.8);
+    text("speler 2",w/1.246753,h/10.8)
+    text("Om te bewegen gebruik:",w/1.2387,h/3.6);
+    image(leftKey,w/1.38129,h/2.7,w/19.2,h/10.8);
+    image(upKey,w/1.28859,h/2.7,w/19.2,h/10.8);
+    image(rightKey,w/1.207547,h/2.7,w/19.2,h/10.8);
+    text("Om te schieten gebruik:",w/1.2387,h/1.5428571);
+    text("Rechter:",w/1.3714,h/1.35)
+    image(shiftKey,w/1.246753,h/1.44,w/7.68,h/10.8);
+    text("Numpad:",w/1.3714,h/1.167567);
+    image(num_0Key,w/1.246753,h/1.23428,w/19.2,h/10.8);
     text("Druk op 'Enter' om door te gaan", w/2,h/10.8)
     pop();
     if (keyIsDown(13) && this.willekeurig == 1) {
