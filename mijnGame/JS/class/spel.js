@@ -298,20 +298,30 @@ class spel {
     this.platforms.push(new Platform(w / 9.6,h / 1.0485436,w / 1.28,"midnightblue"));
     this.platforms.push(new Platform(0,h / 1.44,w / 6.4,"midnightblue"));
     this.platforms.push(new Platform(w / 1.185185,h / 1.44,w / 6.4,"midnightblue"));
-    this.platforms.push(new Platform(w/4.8,h/2.16,200,"midnightblue"));
-    this.platforms.push(new Platform(w/1.454545,h/2.16,w/9.6,"midnightblue"));
+    this.platforms.push(new Platform(w/4.8,h/2.16,w/6.4,"midnightblue"));
+    this.platforms.push(new Platform(w/1.454545,h/2.16,w/6.4,"midnightblue"));
   }
 
   platformslvl4() {
     this.platforms = [];
     this.platforms.push(new Platform(w / 9.6,h / 1.0485436,w / 1.28,"darkorange"));
-    this.platforms.push(new Platform(w / 7.68,h / 1.44,w / 5,4,"darkorange"));
-    this.platforms.push(new Platform(w / 1.42222,h / 1.18,w / 5,4,"darkorange"));
+    this.platforms.push(new Platform(w/5.189,h/1.35,w/12.8,"darkorange"));
+    this.platforms.push(new Platform(w/2.66666,h/1.35,w/12.8,"darkorange"));
+    this.platforms.push(new Platform(w/1.82857,h/1.35,w/12.8,"darkorange"));
+    this.platforms.push(new Platform(w/1.3714,h/1.35,w/12.8,"darkorange"));
+    
+    this.platforms.push(new Platform(w/3.5229,h/1.8947,w/12.8,"darkorange"));
+    this.platforms.push(new Platform(w/2-(w/12.8)/2,h/1.8947,w/12.8,"darkorange"));
+    this.platforms.push(new Platform(w/1.5673,h/1.8947,w/12.8,"darkorange"));
+
+    this.platforms.push(new Platform(w/2.66666,h/3.17647,w/12.8,"darkorange"));
+    this.platforms.push(new Platform(w/1.82857,h/3.17647,w/12.8,"darkorange"));
   }
 
   platformslvl5() {
     this.platforms = [];
     this.platforms.push(new Platform(w / 9.6,h / 1.0485436,w / 1.28,"midnightblue"));
+
   }
 
   verwerkschieten() {
@@ -372,10 +382,10 @@ class spel {
   teken() {
     background(186, 232, 232);
     if (this.level == 0) {
-      this.beginScherm();
-    }
+        this.beginScherm();
+        }
     if (this.level >= 3) {
-      this.levels();
+        this.levels();
     }
     if (this.level == 1) {
       this.tutorialScreen();

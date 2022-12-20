@@ -113,7 +113,7 @@ class speler {
       if (
         (this.y + this.l) >= (h - (h / 54))
       ) {
-        this.x = (w / 2) - this.l;
+        this.x = (w / 2) - this.l/2;
         this.y = h / 2;
         this.levens--;
       }
