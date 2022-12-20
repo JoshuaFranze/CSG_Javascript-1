@@ -96,7 +96,6 @@ class speler {
         return raak;
       }
 
-
     wordtGeraakt(k) {
       if (
         (k.x + k.diameter) < (this.x + this.l) &&
@@ -111,10 +110,16 @@ class speler {
     }
 
     grondRaak() {
-      if((this.y + this.l) >= 1080) {
-        this.test = 1;
+      if (
+        (this.y + this.l) >= (h - (h / 54))
+      ) {
+        this.x = (w / 2) - this.l;
+        this.y = h / 2;
+        this.levens--;
       }
+      else {
 
+      }
     }
     
     teken() {

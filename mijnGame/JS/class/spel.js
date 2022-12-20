@@ -1,14 +1,13 @@
 let lastAttackTimespeler1 = 0;
 let lastAttackTimespeler2 = 0;
 let attackCooldown = 500; // 1 seconde
+let lastRandom = 0;
 
 class spel {
     constructor() {
     this.level = 0;
     this.maxLevel = 6;
-    this.actief = null;
     this.levelGehaald = null;
-    this.alfa = 0.5;
     this.width = window.screen.width * window.devicePixelRatio;;
     this.grens = this.width / 8 * 3;
     this.speler1 = null;
@@ -21,7 +20,11 @@ class spel {
     this.gestart = 0;
     this.test = 0;
     this.willekeurig = 0;
-    this.willekeuriglevels = 4;
+    this.gekozenlevels = [];
+    this.gespeeldelevels = 0;
+    this.speler2wins = 0;
+    this.speler1wins = 0;
+    this.actief = null;
   }
 
   nieuwespelers () {
@@ -31,13 +34,16 @@ class spel {
 
   reset() {
     this.willekeurigLevel();
+    this.gespeeldelevels++;
     this.gestart = 0;
     this.nieuwespelers();
     this.speler1.kogels = [];
     this.speler2.kogels = [];
-    this.willekeuriglevels--;
     achtergrondmuzieklvl1.stop();
     achtergrondmuzieklvl2.stop();
+    achtergrondmuzieklvl3.stop();
+    achtergrondmuzieklvl4.stop();
+    achtergrondmuzieklvl5.stop();
   }
 
   update() {
@@ -65,18 +71,22 @@ class spel {
                 if (mouseIsPressed === true) {
                     this.level = 1;
                     this.willekeurig = 1;
+                    this.actief = true;
                 }
-            fill('black');
+            fill(227, 246, 245);
 
         }
-        else fill("grey");
+        else fill(186, 232, 232);
     }
     else {
-        fill('grey');
+        fill(186, 232, 232);
     }
+    stroke("white");
+    strokeWeight(5);
     rect(width / 8 * 3,h / 2.16,width / 4,h / 5.4);
     push();
-    fill('red');
+    noStroke();
+    fill(39, 35, 67);
     text('Willekeurig', width / 8 * 4, h / 1.8);
     pop();
     pop();
@@ -87,16 +97,19 @@ class spel {
             if (mouseIsPressed === true) {
                 this.level = 2;
             }
-            fill('black');
+            fill(227, 246, 245);
         }
-        else fill("grey");
+        else fill(186, 232, 232);
     }
     else {
-        fill('grey');
+        fill(186, 232, 232);
     }
+    stroke("white");
+    strokeWeight(5);
     rect(width / 8 * 3,h / 1.44,width / 4,h / 5.4);
     push();
-    fill('red');
+    noStroke();
+    fill(39, 35, 67);
     text('Map kiezen', width / 8 * 4, h / 1.270588);
     pop();
     pop();
@@ -104,8 +117,9 @@ class spel {
 
   tutorialScreen() {
     push();
-    background("white");
-    text("speler 1",350, 100);
+    background(186, 232, 232);
+    fill(39, 35, 67);
+    text("speler 1",350,100);
     text("Om te bewegen gebruik:",360,300);
     image(aKey,200,400,100,100);
     image(wKey,300,400,100,100);
@@ -113,21 +127,28 @@ class spel {
     text("Om te schieten gebruik:",360,700);
     image(eKey,350,800,100,100);
     image(qKey,250,800,100,100);
+    text("speler 2",1540,100)
     text("Om te bewegen gebruik:",1550,300);
-    // image(leftKey,)
-    // image(upKey,)
-    // image(rightKey,)
-    // image(shiftKey,)
-    // image(num_0Key,)
+    image(leftKey,1390,400,100,100);
+    image(upKey,1490,400,100,100);
+    image(rightKey,1590,400,100,100);
+    text("Om te schieten gebruik:",1550,700);
+    text("Rechter:",1400,800)
+    image(shiftKey,1540,750,250,100);
+    text("Numpad:",1400,925);
+    image(num_0Key,1540,875,100,100);
+    text("Druk op 'Enter' om door te gaan", w/2,h/10.8)
     pop();
     if (keyIsDown(13) && this.willekeurig == 1) {
-      this.level = 3;
+      this.willekeurigLevel();
     }
   }
 
   levels() {
     push();
        fill('black');
+    if (this.gespeeldelevels < 4) {
+
        if (this.level == 3) {
         background(achtergrondlvl1);
         this.platformslvl1();
@@ -157,8 +178,53 @@ class spel {
        }
 
        if (this.level == 5) {
-
+        background(achtergrondlvl3);
+        this.platformslvl3();
+        for (var p = 0; p < this.platforms.length;p++) {
+          this.platforms[p].teken();
+        }
+        if (this.gestart == 0) {
+          achtergrondmuzieklvl3.play();
+          achtergrondmuzieklvl3.loop();
+          achtergrondmuzieklvl3.setVolume(0.3);
+          this.gestart = 1;
+        }
        }
+
+       if (this.level == 6) {
+        background(achtergrondlvl4);
+        this.platformslvl4();
+        for (var p = 0; p < this.platforms.length;p++) {
+          this.platforms[p].teken();
+        }
+        if (this.gestart == 0) {
+          achtergrondmuzieklvl4.play();
+          achtergrondmuzieklvl4.loop();
+          achtergrondmuzieklvl4.setVolume(0.3);
+          this.gestart = 1;
+        }
+       }
+
+       if (this.level == 7) {
+        background(achtergrondlvl5);
+        this.platformslvl5();
+        for (var p = 0; p < this.platforms.length;p++) {
+          this.platforms[p].teken();
+        }
+        if (this.gestart == 0) {
+          achtergrondmuzieklvl5.play();
+          achtergrondmuzieklvl5.loop();
+          achtergrondmuzieklvl5.setVolume(0.3);
+          this.gestart = 1;
+        }
+       }
+      }
+      else{
+        this.eindScherm();
+        this.actief = false;
+      }
+
+       
 
        for (var n = 0; n< this.speler1.kogels.length; n++) {
         this.speler1.kogels[n].kogelTeken();
@@ -168,25 +234,50 @@ class spel {
       this.speler2.kogels[n].kogelTeken();
     } 
 
+    if (this.actief) {
        this.speler1.update(this.platforms);
        this.speler1.teken();
        this.speler2.update(this.platforms);
        this.speler2.teken();
        this.verwerkschieten();
+    }
 
-       if (this.speler1.levens == 0 || this.speler2.levens == 0) {
+       if (this.speler1.levens == 0) {
         this.reset();
+        this.speler1wins++;
+       }
+
+       if (this.speler2.levens == 0) {
+        this.reset();
+        this.speler2wins++;
        }
 
     pop();
   }
 
   willekeurigLevel() {
-    this.level = int(random(3.49,4.49));
-    console.log(this.level);
+    while (true){
+      let randomNum = int(random(3.49,7.49));
+      if (
+        randomNum == this.gekozenlevels[0] ||
+        randomNum == this.gekozenlevels[1] ||
+        randomNum == this.gekozenlevels[2] ||
+        randomNum == this.gekozenlevels[3] ||
+        randomNum == this.gekozenlevels[5]
+        ) {
+         continue;
+       }
+      else{
+      this.gekozenlevels.push(randomNum);
+      lastRandom = randomNum;
+      this.level = randomNum;
+      return randomNum;
+      }  
+   }
+   //bron: https://editor.p5js.org/zoegao/sketches/ieIKJSIJe
   }
 
-  platformslvl1 () {
+  platformslvl1() {
     this.platforms = [];
     this.platforms.push(new Platform(w / 9.6,h / 1.0485436,w / 1.28,"Fuchsia"));
     this.platforms.push(new Platform(w / 7.68,h / 1.35,w / 6.4,"Fuchsia"));
@@ -194,12 +285,33 @@ class spel {
     this.platforms.push(new Platform(w / 3.4909,h / 2.16,w / 2.4,"Fuchsia"));
   }
 
-  platformslvl2 () {
+  platformslvl2() {
     this.platforms = [];
     this.platforms.push(new Platform(w / 9.6,h / 1.0485436,w / 1.28,"brown"));
+    this.platforms.push(new Platform(0,h / 1.44,w / 6.4,"brown"));
+    this.platforms.push(new Platform(w / 1.185185,h / 1.44,w / 6.4,"brown"));
   }
 
-  verwerkschieten () {
+  platformslvl3() {
+    this.platforms = [];
+    this.platforms.push(new Platform(w / 9.6,h / 1.0485436,w / 1.28,"midnightblue"));
+    this.platforms.push(new Platform(0,h / 1.44,w / 6.4,"midnightblue"));
+    this.platforms.push(new Platform(w / 1.185185,h / 1.44,w / 6.4,"midnightblue"));
+    this.platforms.push(new Platform(400,500,200,"midnightblue"));
+    this.platforms.push(new Platform(1320,500,200,"midnightblue"));
+  }
+
+  platformslvl4() {
+    this.platforms = [];
+    this.platforms.push(new Platform(w / 9.6,h / 1.0485436,w / 1.28,"midnightblue"));
+  }
+
+  platformslvl5() {
+    this.platforms = [];
+    this.platforms.push(new Platform(w / 9.6,h / 1.0485436,w / 1.28,"midnightblue"));
+  }
+
+  verwerkschieten() {
     if (millis() - lastAttackTimespeler1 >= attackCooldown ) {
       if (keyIsDown(96)) { //speler 1
         this.speler1.kogels.push(new Kogel(this.speler1.x + this.speler1.l,this.speler1.y + 0.5 * this.speler1.l,0,frameCount));
@@ -232,17 +344,19 @@ class spel {
 
 
   eindScherm() {
-    var tekst = 'Klik voor een nieuw spel.';
+    this.platforms = [];
     push();
-    textAlign(CENTER,CENTER);
-    fill(0);
-    text(tekst,0,0,canvas.width,canvas.height);
+    fill(39, 35, 67);
+    if (this.speler1wins > this.speler2wins) {
+    text("Speler 1 heeft gewonnen", w/2,h/5.4);
+    text(this.speler1wins + "-" + this.speler2wins,w/2,h/2)
+    }
     pop();
   }
 
 
   teken() {
-    background("grey");
+    background(186, 232, 232);
     if (this.level == 0) {
         this.beginScherm();
         }
