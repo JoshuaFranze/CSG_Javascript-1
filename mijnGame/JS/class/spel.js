@@ -3,28 +3,25 @@ let lastAttackTimespeler2 = 0;
 let attackCooldown = 500; // 1 seconde
 let lastRandom = 0;
 
+
 class spel {
     constructor() {
     this.level = 0;
-    this.maxLevel = 6;
     this.levelGehaald = null;
-    this.width = window.screen.width * window.devicePixelRatio;;
-    this.grens = this.width / 8 * 3;
     this.speler1 = null;
     this.speler2 = null;
     this.platforms = [];
     this.nieuwespelers();
     this.speler1.kogels = [];
     this.speler2.kogels = [];
-    this.leftcheck = null;
     this.gestart = 0;
-    this.test = 0;
     this.willekeurig = 0;
     this.gekozenlevels = [];
     this.gespeeldelevels = 0;
     this.speler2wins = 0;
     this.speler1wins = 0;
     this.actief = null;
+    this.levelBacklog = null;
   }
 
   nieuwespelers () {
@@ -65,16 +62,20 @@ class spel {
 
 
   beginScherm() {
+    image(bijbalShooter,w/2-w/3.072/2,0,w/3.072,h/2.7);
     push();
-    if (mouseX > this.grens && mouseX < this.grens + width / 4) {
+    if (mouseX > w/8*3 && mouseX < w/8*3 + width / 4) {
         if (mouseY > h / 2.16 && mouseY < h / 1.54285) {
-                if (mouseIsPressed === true) {
-                    this.level = 1;
-                    this.willekeurig = 1;
-                    this.actief = true;
-                }
+            if (mouseIsPressed === true) {
+              this.level = 1;
+              this.willekeurig = 1;
+              this.actief = true;
+            }
             fill(227, 246, 245);
-
+            push();
+            fill(39, 35, 67);
+            text("5 rondes lang gevecht, uitgevochten op willekeurige levels",w/2,h/2.7)
+            pop();
         }
         else fill(186, 232, 232);
     }
@@ -92,12 +93,16 @@ class spel {
     pop();
 
     push();
-    if (mouseX > this.grens && mouseX < this.grens + width / 4) {
+    if (mouseX > w/8*3 && mouseX < w/8*3 + width / 4) {
         if (mouseY > h / 1.44 && mouseY < h / 1.13684) {
             if (mouseIsPressed === true) {
                 this.level = 2;
             }
             fill(227, 246, 245);
+            push();
+            fill(39, 35, 67);
+            text("1 ronde lang gevecht, op een zelf gekozen level",w/2,h/2.7)
+            pop();
         }
         else fill(186, 232, 232);
     }
@@ -143,13 +148,65 @@ class spel {
     if (keyIsDown(13) && this.willekeurig == 1) {
       this.willekeurigLevel();
     }
+    if (keyIsDown(13) && this.willekeurig == 0) {
+      this.level = this.levelBacklog;
+    }
   }
 
   levels() {
+    if (this.level == 2) {
+      push();
+      if (mouseX >= w/16*1 && mouseX < (w/16*1 + w/8*2) && mouseY > h/8*1 && mouseY < (h/8*1 + h/8*2)) {
+        if (mouseIsPressed === true) {
+          this.level = 1;
+          this.levelBacklog = 7;
+          this.actief = true;
+        }
+      }
+      if (mouseX >= w/16*6 && mouseX < (w/16*6 + w/8*2) && mouseY > h/8*1 && mouseY < (h/8*1 + h/8*2)) {
+        if (mouseIsPressed === true) {
+          this.level = 1;
+          this.levelBacklog = 3;
+          this.actief = true;
+        }
+      }
+      if (mouseX >= w/16*11 && mouseX < (w/16*11 + w/8*2) && mouseY > h/8*1 && mouseY < (h/8*1 + h/8*2)) {
+        if (mouseIsPressed === true) {
+          this.level = 1;
+          this.levelBacklog = 4;
+          this.actief = true;
+        }
+      }
+      if (mouseX >= w/16*1 && mouseX < (w/16*1 + w/8*2) && mouseY > h/8*5 && mouseY < (h/8*5 + h/8*2)) {
+        if (mouseIsPressed === true) {
+          this.level = 1;
+          this.levelBacklog = 5;
+          this.actief = true;
+        }
+      }
+      if (mouseX >= w/16*11 && mouseX < (w/16*11 + w/8*2) && mouseY > h/8*5 && mouseY < (h/8*5 + h/8*2)) {
+        if (mouseIsPressed === true) {
+          this.level = 1;
+          this.levelBacklog = 6;
+          this.actief = true;
+        }
+      }
+      push();
+      fill(39, 35, 67);
+      text("Kies een level door er op te klikken",w/2,h/2);
+      image(bijbalShooter,w/2-w/3.072/2,h/1.77049,w/3.072,h/2.7);
+      image(levelSelect1,w/16*1,h/8*1,w/8*2,h/8*2);
+      image(levelSelect2,w/16*6,h/8*1,w/8*2,h/8*2);
+      image(levelSelect3,w/16*11,h/8*1,w/8*2,h/8*2);
+      image(levelSelect4,w/16*1,h/8*5,w/8*2,h/8*2);
+      image(levelSelect5,w/16*11,h/8*5,w/8*2,h/8*2);
+      pop();
+    }
+    // tot aan hier is levelselect
+
     push();
        fill('black');
     if (this.gespeeldelevels < 5) {
-
        if (this.level == 3) {
         background(achtergrondlvl1);
         this.platformslvl1();
@@ -224,16 +281,18 @@ class spel {
         this.eindScherm();
         this.actief = false;
       }
+      // het tekenen en maken van alle levels
 
        
 
-       for (var n = 0; n< this.speler1.kogels.length; n++) {
-        this.speler1.kogels[n].kogelTeken();
+    for (var n = 0; n< this.speler1.kogels.length; n++) {
+      this.speler1.kogels[n].kogelTeken();
     }
 
-       for (var n = 0; n< this.speler2.kogels.length; n++) {
+    for (var n = 0; n< this.speler2.kogels.length; n++) {
       this.speler2.kogels[n].kogelTeken();
     } 
+    //schieten
 
     if (this.actief) {
        this.speler1.update(this.platforms);
@@ -242,17 +301,36 @@ class spel {
        this.speler2.teken();
        this.verwerkschieten();
     }
-
+    // update
+    
+    if (this.willekeurig == 1) {
        if (this.speler1.levens == 0) {
         this.reset();
         this.speler1wins++;
        }
-
        if (this.speler2.levens == 0) {
         this.reset();
         this.speler2wins++;
        }
+    }
 
+    if (this.willekeurig == 0) {
+      if (this.speler1.levens == 0) {
+        if (this.actief) {
+          this.speler1wins++;
+          this.actief = false;
+        }
+        this.eindScherm();
+       }
+       if (this.speler2.levens == 0) {
+        if (this.actief) {
+          this.speler2wins++;
+          this.actief = false;
+        }
+        this.eindScherm();
+       }
+    }
+    // checken of er iemand dood is
     pop();
   }
 
@@ -298,7 +376,7 @@ class spel {
     this.platforms.push(new Platform(w / 9.6,h / 1.0485436,w / 1.28,"midnightblue"));
     this.platforms.push(new Platform(0,h / 1.44,w / 6.4,"midnightblue"));
     this.platforms.push(new Platform(w / 1.185185,h / 1.44,w / 6.4,"midnightblue"));
-    this.platforms.push(new Platform(w/4.8,h/2.16,w/6.4,"midnightblue"));
+    this.platforms.push(new Platform(w/6.4,h/2.16,w/6.4,"midnightblue"));
     this.platforms.push(new Platform(w/1.454545,h/2.16,w/6.4,"midnightblue"));
   }
 
@@ -309,11 +387,9 @@ class spel {
     this.platforms.push(new Platform(w/2.66666,h/1.35,w/12.8,"darkorange"));
     this.platforms.push(new Platform(w/1.82857,h/1.35,w/12.8,"darkorange"));
     this.platforms.push(new Platform(w/1.3714,h/1.35,w/12.8,"darkorange"));
-    
     this.platforms.push(new Platform(w/3.5229,h/1.8947,w/12.8,"darkorange"));
     this.platforms.push(new Platform(w/2-(w/12.8)/2,h/1.8947,w/12.8,"darkorange"));
     this.platforms.push(new Platform(w/1.5673,h/1.8947,w/12.8,"darkorange"));
-
     this.platforms.push(new Platform(w/2.66666,h/3.17647,w/12.8,"darkorange"));
     this.platforms.push(new Platform(w/1.82857,h/3.17647,w/12.8,"darkorange"));
   }
@@ -321,7 +397,9 @@ class spel {
   platformslvl5() {
     this.platforms = [];
     this.platforms.push(new Platform(w / 9.6,h / 1.0485436,w / 1.28,"midnightblue"));
-
+    this.platforms.push(new Platform(w/4.8,h/1.44,w/1.74545,"midnightblue"));
+    this.platforms.push(new Platform(0,h/2.4,w/9.6,"midnightblue"));
+    this.platforms.push(new Platform(w/1.116279,h/2.4,w/9.6,"midnightblue"));
   }
 
   verwerkschieten() {
@@ -357,6 +435,7 @@ class spel {
 
 
   eindScherm() {
+    background(186, 232, 232);
     push();
     fill(39, 35, 67);
     if (this.speler1wins > this.speler2wins) {
@@ -366,6 +445,7 @@ class spel {
       text("Speler 2 heeft gewonnen", w/2,h/5.4); 
     }
     text(this.speler1wins + "-" + this.speler2wins,w/2,h/2)
+    text("Druk op 'F5' om opnieuw te beginnen",w/2,h/1.35)
     stroke("red");
     fill("black");
     strokeWeight(w / 240);
@@ -384,7 +464,7 @@ class spel {
     if (this.level == 0) {
         this.beginScherm();
         }
-    if (this.level >= 3) {
+    if (this.level >= 2) {
         this.levels();
     }
     if (this.level == 1) {

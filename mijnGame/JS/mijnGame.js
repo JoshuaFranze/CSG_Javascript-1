@@ -7,12 +7,14 @@ var h = window.screen.height * window.devicePixelRatio;
 var loading = 1;
 var counter = 0;
 var angle = 0;
+var mouseX = mouseX;
+var mouseY = mouseY
 
   // geen preload expres voor gekozen, je kan dan een custom laadscherm maken.
 
   function soundLoaded() {
     counter++;
-    if (counter == 23) {
+    if (counter == 24) {
       loading = 0;
     }
   }
@@ -26,7 +28,14 @@ var angle = 0;
 
     hitsound = loadSound("sounds/hit.wav", soundLoaded);
     shootingsound = loadSound("sounds/shot.mp3", soundLoaded);
-    heart = loadImage("assets/heart.png", soundLoaded)
+    heart = loadImage("assets/heart.png", soundLoaded);
+    bijbalShooter = loadImage("assets/bijbalshooter.png", soundLoaded);
+
+    levelSelect1 = loadImage("assets/levelSelect/Space.PNG");
+    levelSelect2 = loadImage("assets/levelSelect/neo city.PNG");
+    levelSelect3 = loadImage("assets/levelSelect/wildwest.PNG");
+    levelSelect4 = loadImage("assets/levelSelect/sanctum.PNG");
+    levelSelect5 = loadImage("assets/levelSelect/ancient pyramid.PNG");
 
     achtergrondlvl1 = loadImage("assets/neoncity.jpg", soundLoaded);
     achtergrondlvl2 = loadImage("assets/wildwest.jpg", soundLoaded);

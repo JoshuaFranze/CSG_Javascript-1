@@ -14,9 +14,6 @@ class speler {
         this.right = right;
         this.kogels = null;
         this.levens = 4;
-        this.vnrLijst = null;
-        this.kogellijst = null;
-        this.test = 0;
     }
 
     verwerkInvoer() {
@@ -82,7 +79,6 @@ class speler {
       }
 
       raakt(pf) {
-        this.vnrLijst = pf;
         var raak = false;
         for (var p = 0; p < pf.length; p++) {
           if (  (this.x + this.l/2) > pf[p].x && 
